@@ -30,6 +30,7 @@ console.log(elementoInput)
             let humedad = data.main.humidity;
             let presion = data.main.pressure;
             let velocidadViento = data.wind.speed; 
+            let clima = data.weather[0].main;
 
             elementoDatos.innerHTML = `
                 <p>Temperatura máxima: ${tempMax}</p>
@@ -39,9 +40,28 @@ console.log(elementoInput)
                 <p>Presión atmosférica: ${presion}</p>
                 <p>Viento a: ${velocidadViento} km/h</p>
             `
+           
+            if(clima == "Clouds"){
+            container.classList.remove("clear","rain","snow");
+            container.classList.add("clouds");
+          
+            }if(clima == "Clear"){  
+                container.classList.remove("clouds","rain","snow");
+                container.classList.add("clear");
+            }
+            if(clima == "Rain"){
+                container.classList.remove("clouds","clear","snow");
+                container.classList.add("rain");   
+            }
+            if(clima == "Snow"){
+                container.classList.remove("clouds","clear", "rain");
+                container.classList.add("snow");   
+            }
+            console.log(clima)
 
         })
 
+     
     });
     
 };

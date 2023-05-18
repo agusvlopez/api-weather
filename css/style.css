@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #313131;
+}
+
+p {
+    font-size: 1.15rem;
+}
+
+.clouds {
+    background-image: url("/img/clouds.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.clear {
+    background-image: url("/img/clear.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rain {
+    background-image: url("/img/rain.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-weight: 600;
+}
+.snow {
+    background-image: url("/img/snow.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-weight: 600;
+}
+
+.bg-blanco {
+    background-color: rgba(240, 248, 255, 0.562);
+}
