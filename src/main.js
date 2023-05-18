@@ -1,17 +1,18 @@
 const API_KEY = "033ffc66c5177cc7178a59750e2932ce";
 const URL = "http://api.openweathermap.org/geo/1.0/direct?";
-let ciudad = "London";
-let tempMax;
-let tempMin;
-let humedad;
-let termica;
-let presion;
-let velocidadViento;
 
+const elementoBotonInput = document.getElementById("btnClima");
+const elementoDatos = document.getElementById('datos');
+const imgFondoClima = document.getElementById('container');
+
+elementoBotonInput.addEventListener("click", devolverClima);
 
 function devolverClima (){
 
-    fetch(`${URL}q=${ciudad}&appid=${API_KEY}`)
+  let elementoInput = document.getElementById("inputClima").value;
+console.log(elementoInput)
+
+    fetch(`${URL}q=${elementoInput}&appid=${API_KEY}`) 
     .then(response => response.json())
     .then((data)=>{
         console.log(data)
@@ -22,20 +23,25 @@ function devolverClima (){
         .then(response => response.json())
         .then((data) => {
             console.log(data)
-            console.log(data.main.temp);
-            tempMax = Math.floor((data.main.temp_max - 32)/1.8) + " C";
-            tempMin = (data.main.temp_min - 32)/1.8 + " C";;
-            termica = data.main.feels_like;
-            humedad = data.main.humidity;
-            presion = data.main.pressure;
-            velocidadViento = data.wind.speed;   
-            console.log(velocidadViento);
-            
-            console.log(tempMax);
+           
+            let tempMax = Math.floor((data.main.temp_max - 32)/1.8) + " Celsius";
+            let tempMin = Math.floor((data.main.temp_min - 32)/1.8) + " Celsius";
+            let termica = Math.floor((data.main.feels_like - 32)/1.8) + " Celsius";
+            let humedad = data.main.humidity;
+            let presion = data.main.pressure;
+            let velocidadViento = data.wind.speed; 
 
+            elementoDatos.innerHTML = `
+                <p>Temperatura máxima: ${tempMax}</p>
+                <p>Temperatura mínima: ${tempMin}</p>
+                <p>Humedad: ${humedad}%</p>
+                <p>Sensación térmica: ${termica}</p>
+                <p>Presión atmosférica: ${presion}</p>
+                <p>Viento a: ${velocidadViento} km/h</p>
+            `
 
         })
 
     });
+    
 };
-devolverClima();
