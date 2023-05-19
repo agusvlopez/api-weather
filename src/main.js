@@ -6,40 +6,31 @@ const elementoDatos = document.getElementById('datos');
 const imgFondoClima = document.getElementById('container');
 const enter = document.getElementById('inputClima');
 
+let objetoGuardados;
+let tempMax;
+let tempMin;
+let termica;
+let humedad;
+let presion;
+let velocidadViento;    
+let elementoInput;
+
 // Los addEventListener...(click y enter)
-elementoBotonInput.addEventListener("click", devolverClima);
+elementoBotonInput.addEventListener("click", consultarLocalStorage);
 enter.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
-        devolverClima ()
+        consultarLocalStorage ()
     }
 });
 
-function devolverClima (){
+function render(data) {
 
-  let elementoInput = document.getElementById("inputClima").value;
-console.log(elementoInput)
-    
-    fetch(`${URL}q=${elementoInput}&appid=${API_KEY}`) 
-    .then(response => response.json())
-    .then((data)=>{
-        console.log(data)
-        
-        if(data.length == 0){
-            alert("El dato ingresado no existe");
-        }else{
-            let latitud = data[0].lat;
-            let longitud = data[0].lon;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${API_KEY}`)
-        .then(response => response.json())
-        .then((data) => {
-            console.log(data)
-           
-            let tempMax = (data.main.temp_max - 273.15).toFixed(1) + "°C";
-            let tempMin = Math.floor(data.main.temp_min - 273.15).toFixed(1) + "°C";
-            let termica = Math.floor(data.main.feels_like - 273.15).toFixed(1) + "°C";
-            let humedad = data.main.humidity;
-            let presion = data.main.pressure;
-            let velocidadViento = data.wind.speed; 
+            tempMax = (data.main.temp_max - 273.15).toFixed(1) + "°C";
+            tempMin = Math.floor(data.main.temp_min - 273.15).toFixed(1) + "°C";
+            termica = Math.floor(data.main.feels_like - 273.15).toFixed(1) + "°C";
+            humedad = data.main.humidity;
+            presion = data.main.pressure;
+            velocidadViento = data.wind.speed; 
             let clima = data.weather[0].main;
 
             elementoDatos.innerHTML = `
@@ -68,11 +59,65 @@ console.log(elementoInput)
                 container.classList.remove("clouds","clear", "rain");
                 container.classList.add("snow");   
             }
-            console.log(clima)
+           
 
-        })
 
+    }
+
+function getDataApi (elementoInput){
+    
+    fetch(`${URL}q=${elementoInput}&appid=${API_KEY}`) 
+    .then(response => response.json())
+    .then((data)=> {
+        
+        if(data.length == 0){
+            alert("El dato ingresado no existe");
+            
+        }else{
+            let latitud = data[0].lat;
+            let longitud = data[0].lon;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${API_KEY}`)
+        .then(response => response.json())
+        .then((data) => {
+            
+            //Guardo en storage: llamo a la variable global objetoGuardados, le digo que cree una propiedad con el dato que llegue al elementoInput e igualo el valor de esa propiedad a la data que hay en la api...
+            objetoGuardados[elementoInput] = data;
+            localStorage.setItem(elementoInput, JSON.stringify(objetoGuardados));
+            render(data);
+            
+
+            });
         }
     });
+};
+
+//Consulta al LocalStorage...
+
+function consultarItem(elementoInput) {
+    let itemStorage = JSON.parse(localStorage.getItem(elementoInput));
+    let itemUno;
+
+if(itemStorage){
+    itemUno = itemStorage;
+}else{
+    itemUno = {};                 
+}
+return itemUno
+};
+
+
+function consultarLocalStorage () {
+    elementoInput = document.getElementById("inputClima").value;
+    objetoGuardados = consultarItem(elementoInput);
     
+    console.log(objetoGuardados);
+
+    if(objetoGuardados[elementoInput]){
+        render(objetoGuardados[elementoInput]);
+    }
+    else{
+       getDataApi(elementoInput);
+    }
+
+   
 };
