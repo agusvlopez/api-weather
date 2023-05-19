@@ -1,15 +1,33 @@
+/*
+PALETA DE COLORES...
+ https://coolors.co/palette/000000-14213d-fca311-e5e5e5-ffffff 
+*/
+
 * {
     box-sizing: border-box;
 }
 
 body {
-    color: #313131;
+    color: #0D1B2A;
+}
+
+h2 {
+    color: #415A77;
 }
 
 p {
     font-size: 1.15rem;
 }
 
+.boton {
+    background-color: #1B263B;
+    color: #E0E1DD;
+}
+
+.boton:hover {
+    background-color: #778DA9;
+    color: #1B263B;
+}
 .clouds {
     background-image: url("/img/clouds.jpg");
     background-repeat: no-repeat;
@@ -36,5 +54,5 @@ p {
 }
 
 .bg-blanco {
-    background-color: rgba(240, 248, 255, 0.562);
+    background-color: #e0e1dd94;
 }
