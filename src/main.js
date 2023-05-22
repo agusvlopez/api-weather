@@ -52,14 +52,14 @@ function render(data) {
                 container.classList.add("clear");
             }
             if(clima == "Rain"){
-                container.classList.remove("clouds","clear","snow");
-                container.classList.add("rain");   
+            container.classList.remove("clouds","clear","snow");
+            container.classList.add("rain");  
             }
             if(clima == "Snow"){
                 container.classList.remove("clouds","clear", "rain");
                 container.classList.add("snow");   
             }
-           
+        
 
 
     }
@@ -76,9 +76,9 @@ function getDataApi (elementoInput){
         }else{
             let latitud = data[0].lat;
             let longitud = data[0].lon;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${API_KEY}`)
-        .then(response => response.json())
-        .then((data) => {
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitud}&lon=${longitud}&appid=${API_KEY}`)
+            .then(response => response.json())
+            .then((data) => {
             
             //Guardo en storage: llamo a la variable global objetoGuardados, le digo que cree una propiedad con el dato que llegue al elementoInput e igualo el valor de esa propiedad a la data que hay en la api...
             objetoGuardados[elementoInput] = data;
