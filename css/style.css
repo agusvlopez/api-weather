@@ -10,6 +10,7 @@ PALETA DE COLORES...
 body {
     color: #0D1B2A;
     background-color: #E0E1DD;
+    height: 100vh;
 }
 
 h2 {
@@ -29,25 +30,29 @@ p {
     background-color: #778DA9;
     color: #1B263B;
 }
+
 .clouds {
-    background-image: url("/img/clouds.jpg");
+    background-image: url("../img/clouds.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .clear {
-    background-image: url("/img/clear.jpg");
+    background-image: url("../img/clear.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .rain {
-    background-image: url("/img/rain.jpg");
+    background-image: url("../img/rain.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
     font-weight: 600;
 }
+
 .snow {
-    background-image: url("/img/snow.jpg");
+    background-image: url("../img/snow.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -57,5 +62,3 @@ p {
 .bg-blanco {
     background-color: #e0e1dd94;
 }
-
- 
